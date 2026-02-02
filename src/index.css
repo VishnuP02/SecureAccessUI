@@ -1,0 +1,102 @@
+/* Reset + base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+/* Full screen background */
+.app-background {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at top left, #1e3a8a, transparent 55%),
+    radial-gradient(circle at bottom right, #020617, #020617);
+}
+
+/* Login card */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem 2.25rem;
+  background: rgba(30, 41, 59, 0.65);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Title */
+.login-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.login-subtitle {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  margin-bottom: 1.75rem;
+}
+
+/* Inputs */
+.login-input {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  margin-bottom: 0.85rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(15, 23, 42, 0.75);
+  color: #e5e7eb;
+  font-size: 0.95rem;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* Button */
+.login-button {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.login-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Error / lockout messages */
+.login-error {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #fca5a5;
+}
