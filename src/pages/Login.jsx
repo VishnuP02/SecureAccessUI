@@ -6,31 +6,43 @@ export default function Login() {
   const navigate = useNavigate();
   const { login, isLocked, lockoutSecondsLeft } = useAuth();
 
-  const [username, setUsername] = useState("admin");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
+
     if (loading || isLocked) return;
 
     setError("");
     setLoading(true);
 
-    const result = login({ username, password });
+    const result = login({
+      username: username.trim(),
+      password,
+    });
 
     if (!result?.ok) {
       if (result?.reason === "LOCKED") {
-        setError("Too many attempts. Locked temporarily.");
+        setError("Too many failed login attempts. Account locked temporarily.");
       } else {
-        setError("Invalid credentials.");
+        setError("Invalid username or password.");
       }
+
+      setPassword("");
       setLoading(false);
       return;
     }
 
-    navigate(result.role === "admin" ? "/admin" : "/operator", { replace: true });
+    setUsername("");
+    setPassword("");
+
+    navigate(result.role === "admin" ? "/admin" : "/operator", {
+      replace: true,
+    });
+
     setLoading(false);
   }
 
@@ -39,31 +51,49 @@ export default function Login() {
       <div style={card}>
         <h2 style={{ marginBottom: 6 }}>SecureAccessUI</h2>
 
-        <p style={{ opacity: 0.8, marginTop: 0 }}>
-          Demo: <b>operator / Operator123!</b> | <b>admin / Admin123!</b>
+        <p style={subtitle}>
+          Role-based security dashboard for authentication monitoring, session
+          management, and access control.
         </p>
 
+        <div style={demoBox}>
+          <strong>Demo Credentials</strong>
+          <p style={demoText}>
+            Admin: <b>admin / Admin123!</b>
+          </p>
+          <p style={demoText}>
+            Operator: <b>operator / Operator123!</b>
+          </p>
+        </div>
+
         {isLocked && (
-          <p style={{ marginTop: 10 }}>
+          <p style={lockoutMessage}>
             🔒 Account locked. Try again in <b>{lockoutSecondsLeft}s</b>.
           </p>
         )}
 
         <form onSubmit={handleSubmit} style={{ marginTop: 16 }}>
           <input
+            type="text"
+            name="secureaccess-username"
             placeholder="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             disabled={isLocked || loading}
+            autoComplete="off"
+            autoCorrect="off"
+            spellCheck="false"
             style={input}
           />
 
           <input
             type="password"
+            name="secureaccess-password"
             placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isLocked || loading}
+            autoComplete="new-password"
             style={{ ...input, marginTop: 10 }}
           />
 
@@ -71,7 +101,7 @@ export default function Login() {
             {loading ? "Signing in..." : "Login"}
           </button>
 
-          {error && <p style={{ marginTop: 12, color: "#ffb4b4" }}>{error}</p>}
+          {error && <p style={errorText}>{error}</p>}
         </form>
       </div>
     </div>
@@ -100,6 +130,30 @@ const card = {
   boxShadow: "0 20px 70px rgba(0,0,0,0.45)",
 };
 
+const subtitle = {
+  opacity: 0.85,
+  marginTop: 0,
+  lineHeight: 1.5,
+};
+
+const demoBox = {
+  marginTop: 14,
+  padding: 14,
+  borderRadius: 14,
+  border: "1px solid rgba(255,255,255,0.12)",
+  background: "rgba(0,0,0,0.2)",
+};
+
+const demoText = {
+  margin: "6px 0",
+  opacity: 0.9,
+};
+
+const lockoutMessage = {
+  marginTop: 10,
+  color: "#fecaca",
+};
+
 const input = {
   width: "100%",
   padding: "12px 12px",
@@ -119,4 +173,9 @@ const btn = {
   background: "linear-gradient(135deg, rgba(27,102,255,1), rgba(0,180,255,1))",
   color: "white",
   cursor: "pointer",
+};
+
+const errorText = {
+  marginTop: 12,
+  color: "#ffb4b4",
 };
