@@ -73,19 +73,19 @@ security analytics, audit logging, and alert resolution workflows.
 ## Screenshots
 
 ### Login Screen
-![Login](screenshots/login-screen.png)
+![Login](Screenshots/login-screen.png)
 
 ### Admin Dashboard
-![Admin Dashboard](screenshots/admin-dashboard.png)
+![Admin Dashboard](Screenshots/admin-dashboard.png)
 
 ### Operator Dashboard
-![Operator Dashboard](screenshots/operator-dashboard.png)
+![Operator Dashboard](Screenshots/operator-dashboard.png)
 
 ### User Management Workflow
-![User Management](screenshots/user-management-workflow.png)
+![User Management](Screenshots/user-management-workflow.png)
 
 ### Alert Resolution Workflow
-![Alert Resolution](screenshots/alert-resolution-workflow.png)
+![Alert Resolution](Screenshots/alert-resolution-workflow.png)
 
 ---
 
